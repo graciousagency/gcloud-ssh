@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+INSTANCE=$1
+ZONE=$(gcloud compute instances list|grep $1|awk '{print $2}')
+if [ -z "$ZONE" ]
+then
+    echo "Could not determine zone for instance $1"
+else
+    gcloud compute ssh $1 --zone=$ZONE
+fi
